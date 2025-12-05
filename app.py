@@ -23,46 +23,40 @@ st.markdown(
     """
     <style>
 
-    /* ============================================================
-       GLOBAL BACKGROUND + TEXT STYLES
-       ============================================================ */
+    /* Light gradient background */
     .stApp {
-        background: linear-gradient(135deg, #ffffff 0%, #f2f7ff 100%) !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%) !important;
         font-family: 'Inter', sans-serif;
-    }
-
-    h1, h2, h3, h4 {
         color: #1e1e2f !important;
-        font-weight: 700 !important;
-        letter-spacing: -0.5px;
     }
 
-    p, label, span, div {
-        color: #2b2b2b !important;
-        font-size: 16px !important;
+    /* Global text color */
+    html, body, [class*="css"] {
+        color: #1e1e2f !important;
     }
 
-    /* ============================================================
-       SIDEBAR (LIGHT MODE)
-       ============================================================ */
+    /* Sidebar – white panel style */
     section[data-testid="stSidebar"] {
         background: #ffffff !important;
-        border-right: 1px solid #e3e6ea !important;
+        border-right: 1px solid #e0e4e9;
+        box-shadow: 4px 0 12px rgba(0,0,0,0.04);
+    }
+
+    /* Hero card */
+    .hero-card {
+        background: #ffffff;
+        padding: 24px 28px;
+        border-radius: 18px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         color: #1e1e2f !important;
     }
 
-    /* ============================================================
-       INPUTS + DROPDOWNS (LIGHT MODE)
-       ============================================================ */
-    div[data-baseweb="select"] > div,
-    .stSelectbox div[role="button"],
-    .stNumberInput input,
-    input[type="text"],
-    input[type="number"] {
-        background-color: #f3f4f6 !important;
+    /* Input widgets (select & number input) */
+    .stSelectbox, div[data-baseweb="select"], input, .stNumberInput input {
+        background-color: #f2f4f7 !important;
         color: #1e1e2f !important;
         border-radius: 10px !important;
-        border: 1px solid #d5d8df !important;
+        border: 1px solid #d7dce3 !important;
     }
 
     /* Dropdown selected text */
@@ -70,63 +64,79 @@ st.markdown(
         color: #1e1e2f !important;
     }
 
-    /* Dropdown placeholder text */
-    .css-1wa3eu0-placeholder {
-        color: #6b7280 !important;
-    }
-
-    /* Dropdown arrow icon */
-    div[data-baseweb="select"] svg {
-        color: #1e1e2f !important;
-    }
-
-    /* Style prediction result alert */
-    .stAlert {
-        border-radius: 12px !important;
-        padding: 16px !important;
-        font-size: 18px !important;
-        font-weight: 600 !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    /* Metric Cards */
-    div[data-testid="metric-container"] {
-        background: white !important;
-        padding: 20px;
-        border-radius: 15px !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        color: #1e1e2f !important;
-    }
-
-    /* Buttons (purple gradient) */
+    /* Buttons */
     .stButton>button {
-        background: linear-gradient(135deg, #6a8dff, #a875ff);
-        color: white;
+        background: linear-gradient(135deg, #4b7bec, #6e8efb);
+        color: white !important;
         padding: 12px 24px;
         border-radius: 10px;
         border: none;
         font-weight: 600;
         font-size: 16px;
-        box-shadow: 0 4px 12px rgba(122, 87, 255, 0.4);
-        transition: all 0.2s ease;
+        box-shadow: 0 4px 14px rgba(91, 112, 255, 0.3);
+        transition: 0.25s ease;
     }
 
     .stButton>button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 18px rgba(122, 87, 255, 0.5);
+        box-shadow: 0 8px 20px rgba(91, 112, 255, 0.5);
     }
 
-    /* Footer caption */
-    .stCaption {
-        color: #555 !important;
-        font-size: 14px !important;
-        opacity: 0.9;
+    /* Metric cards (light soft) */
+    div[data-testid="metric-container"] {
+        background: #ffffff !important;
+        color: #1e1e2f !important;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    /* Alerts (success/error) */
+    .stAlert {
+        border-radius: 12px !important;
+        padding: 16px !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        color: #1e1e2f !important;
+        background-color: #ffffff !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+    }
+
+    /* Progress bar color */
+    .stProgress > div > div > div > div {
+        background-color: #4b7bec !important;
     }
 
     </style>
     """,
     unsafe_allow_html=True
 )
+
+
+# ----------------------------
+# SIDEBAR CONTENT
+# ----------------------------
+with st.sidebar:
+    st.title("🩺 About this app")
+    st.write(
+        "This demo predicts the risk that a patient will **no-show** a medical "
+        "appointment using a logistic regression model trained on the "
+        "Kaggle Medical Appointment No-Show dataset."
+    )
+
+    st.markdown("### 📊 Model details")
+    st.write("- Algorithm: Logistic Regression")
+    st.write("- Focus: Higher recall on no-shows")
+    st.write("- Inputs: Age, days between scheduling and appointment, comorbidities, SMS, etc.")
+
+    st.markdown("### 💡 How to use")
+    st.write(
+        "1. Enter patient and appointment details.\n"
+        "2. Click **Predict No-Show Risk**.\n"
+        "3. Use the risk level to decide on reminders or rescheduling."
+    )
+
+    st.caption("Prototype for educational use only – not real clinical advice.")
 
 
 # ----------------------------------------------------
@@ -352,3 +362,4 @@ if st.button("Predict No-Show Risk"):
     st.caption(
         "This is an educational prototype and should not be used as a sole basis for real clinical decisions."
     )
+
