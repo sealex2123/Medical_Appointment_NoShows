@@ -130,6 +130,44 @@ div[data-testid="metric-container"] {
     border-radius: 12px !important;
     border: 1px solid #e5e5e5 !important;
 }
+/* ============================================================
+   FINAL FIX — FORCE DROPDOWN MENU TO WHITE
+   BaseWeb uses a portal root outside main DOM, so we override that too
+============================================================ */
+
+/* The floating dropdown container */
+[data-baseweb="popover"] {
+    background-color: #ffffff !important;
+    border: 1px solid #cfcfcf !important;
+    border-radius: 10px !important;
+}
+
+/* The inner dropdown list */
+[data-baseweb="popover"] ul,
+ul[role="listbox"] {
+    background-color: #ffffff !important;
+    border-radius: 10px !important;
+    border: 1px solid #cfcfcf !important;
+}
+
+/* Dropdown options */
+[data-baseweb="popover"] li,
+ul[role="listbox"] > li {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Hover state */
+[data-baseweb="popover"] li:hover,
+ul[role="listbox"] > li:hover {
+    background-color: #f2f2f2 !important;
+    color: #000000 !important;
+}
+
+/* Fix the weird dark padding layer */
+[data-baseweb="menu"] {
+    background-color: #ffffff !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
