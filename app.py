@@ -122,6 +122,26 @@ st.markdown(
         font-size: 14px !important;
         opacity: 0.9;
     }
+    /* ===== FIX DROPDOWN MENU BACKGROUND ===== */
+    ul[role="listbox"] {
+        background-color: #ffffff !important;   /* white dropdown */
+        color: #1e1e2f !important;             /* dark text */
+        border: 1px solid #d5d8df !important;
+        border-radius: 10px !important;
+    }
+
+    /* Dropdown options */
+    ul[role="listbox"] > li {
+        background-color: #ffffff !important;
+        color: #1e1e2f !important;
+        padding: 10px !important;
+    }
+
+    /* Hover highlight */
+    ul[role="listbox"] > li:hover {
+        background-color: #f3f4f6 !important;   /* light grey hover */
+        color: #1e1e2f !important;
+    }
 
     </style>
     """,
