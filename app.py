@@ -19,134 +19,143 @@ CSV_FILE = "KaggleV2-May-2016.csv"
 # ----------------------------
 # CUSTOM AESTHETIC THEME
 # ----------------------------
-st.markdown(
-    """
-    <style>
+st.markdown( """
+<style>
 
-    /* ============================================================
-       GLOBAL BACKGROUND + TEXT STYLES
-       ============================================================ */
-    .stApp {
-        background: linear-gradient(135deg, #ffffff 0%, #f2f7ff 100%) !important;
-        font-family: 'Inter', sans-serif;
-    }
+/* ============================================================
+   GLOBAL APP STYLING — Light Gradient Theme
+============================================================ */
+.stApp {
+    background: linear-gradient(135deg, #ffffff 0%, #f2f7ff 100%) !important;
+    font-family: 'Inter', sans-serif;
+}
 
-    h1, h2, h3, h4 {
-        color: #1e1e2f !important;
-        font-weight: 700 !important;
-        letter-spacing: -0.5px;
-    }
+/* Headings */
+h1, h2, h3, h4 {
+    color: #1e1e2f !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+}
 
-    p, label, span, div {
-        color: #2b2b2b !important;
-        font-size: 16px !important;
-    }
+/* General Text */
+p, label, span, div {
+    color: #2b2b2b !important;
+    font-size: 16px !important;
+}
 
-    /* ============================================================
-       SIDEBAR (LIGHT MODE)
-       ============================================================ */
-    section[data-testid="stSidebar"] {
-        background: #ffffff !important;
-        border-right: 1px solid #e3e6ea !important;
-        color: #1e1e2f !important;
-    }
+/* Meter boxes */
+.stAlert {
+    border-radius: 12px !important;
+    padding: 16px !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
 
-    /* ============================================================
-       INPUTS + DROPDOWNS (LIGHT MODE)
-       ============================================================ */
-    div[data-baseweb="select"] > div,
-    .stSelectbox div[role="button"],
-    .stNumberInput input,
-    input[type="text"],
-    input[type="number"] {
-        background-color: #f3f4f6 !important;
-        color: #1e1e2f !important;
-        border-radius: 10px !important;
-        border: 1px solid #d5d8df !important;
-    }
+/* Metric Cards */
+div[data-testid="metric-container"] {
+    background: white !important;
+    padding: 20px;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    color: #1e1e2f !important;
+}
 
-    /* Dropdown selected text */
-    .css-1uccc91-singleValue {
-        color: #1e1e2f !important;
-    }
+/* Buttons */
+.stButton>button {
+    background: linear-gradient(135deg, #6a8dff, #a875ff);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(122, 87, 255, 0.4);
+    transition: all 0.2s ease;
+}
+.stButton>button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(122, 87, 255, 0.5);
+}
 
-    /* Dropdown placeholder text */
-    .css-1wa3eu0-placeholder {
-        color: #6b7280 !important;
-    }
+/* Footer caption */
+.stCaption {
+    color: #555 !important;
+    font-size: 14px !important;
+    opacity: 0.9;
+}
 
-    /* Dropdown arrow icon */
-    div[data-baseweb="select"] svg {
-        color: #1e1e2f !important;
-    }
+/* ============================================================
+   SIDEBAR — Light Background + Dark Text
+============================================================ */
+section[data-testid="stSidebar"] {
+    background: #ffffff !important;
+    border-right: 1px solid #e3e6ea !important;
+    color: #1e1e2f !important;
+}
+section[data-testid="stSidebar"] * {
+    color: #1e1e2f !important;
+}
 
-    /* Style prediction result alert */
-    .stAlert {
-        border-radius: 12px !important;
-        padding: 16px !important;
-        font-size: 18px !important;
-        font-weight: 600 !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
+/* ============================================================
+   INPUTS + DROPDOWNS — Light Mode Styling
+============================================================ */
 
-    /* Metric Cards */
-    div[data-testid="metric-container"] {
-        background: white !important;
-        padding: 20px;
-        border-radius: 15px !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        color: #1e1e2f !important;
-    }
+/* Dropdown and input field backgrounds */
+div[data-baseweb="select"] > div,
+.stSelectbox div[role="button"],
+.stNumberInput input,
+input[type="text"],
+input[type="number"],
+textarea {
+    background-color: #f3f4f6 !important;  /* light gray input box */
+    color: #1e1e2f !important;             /* dark text */
+    border-radius: 10px !important;
+    border: 1px solid #d5d8df !important;
+}
 
-    /* Buttons (purple gradient) */
-    .stButton>button {
-        background: linear-gradient(135deg, #6a8dff, #a875ff);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 10px;
-        border: none;
-        font-weight: 600;
-        font-size: 16px;
-        box-shadow: 0 4px 12px rgba(122, 87, 255, 0.4);
-        transition: all 0.2s ease;
-    }
+/* Selected value text */
+.css-1uccc91-singleValue {
+    color: #1e1e2f !important;
+}
 
-    .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 18px rgba(122, 87, 255, 0.5);
-    }
+/* Placeholder */
+.css-1wa3eu0-placeholder {
+    color: #6b7280 !important;
+}
 
-    /* Footer caption */
-    .stCaption {
-        color: #555 !important;
-        font-size: 14px !important;
-        opacity: 0.9;
-    }
-    /* ===== FIX DROPDOWN MENU BACKGROUND ===== */
-    ul[role="listbox"] {
-        background-color: #ffffff !important;   /* white dropdown */
-        color: #1e1e2f !important;             /* dark text */
-        border: 1px solid #d5d8df !important;
-        border-radius: 10px !important;
-    }
+/* Dropdown arrow icon */
+div[data-baseweb="select"] svg {
+    color: #1e1e2f !important;
+}
 
-    /* Dropdown options */
-    ul[role="listbox"] > li {
-        background-color: #ffffff !important;
-        color: #1e1e2f !important;
-        padding: 10px !important;
-    }
+/* ============================================================
+   DROPDOWN MENU — Fix dark menu
+============================================================ */
 
-    /* Hover highlight */
-    ul[role="listbox"] > li:hover {
-        background-color: #f3f4f6 !important;   /* light grey hover */
-        color: #1e1e2f !important;
-    }
+/* Dropdown menu background */
+ul[role="listbox"] {
+    background-color: #ffffff !important;  /* white dropdown */
+    color: #1e1e2f !important;
+    border: 1px solid #d5d8df !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+/* Dropdown option items */
+ul[role="listbox"] > li {
+    background-color: #ffffff !important;
+    color: #1e1e2f !important;
+    padding: 10px !important;
+}
+
+/* Hover effect */
+ul[role="listbox"] > li:hover {
+    background-color: #f3f4f6 !important; /* light gray hover */
+    color: #1e1e2f !important;
+}
+
+</style>
 
 # ----------------------------
 # SIDEBAR CONTENT
@@ -173,6 +182,8 @@ with st.sidebar:
 
     st.caption("Prototype for educational use only – not real clinical advice.")
 
+</style>
+""", unsafe_allow_html=True)
 
 # ----------------------------------------------------
 # 1. TRAIN MODEL ON STARTUP (CACHED)
