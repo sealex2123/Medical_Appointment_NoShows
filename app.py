@@ -192,10 +192,13 @@ if st.button("Predict No-Show Risk"):
     else:
         st.success("Prediction: Patient is **LIKELY TO SHOW UP** ✅")
 
-    st.metric(
-        label="Predicted No-Show Probability",
-        value=f"{proba_no_show:.3f}",
-    )
+   # Convert probability to percentage
+percent = proba_no_show * 100
+
+st.metric(
+    label="Predicted No-Show Probability",
+    value=f"{percent:.1f}%",   # e.g., 51.3%
+)
 
     st.caption(
         "This is an educational prototype and should not be used as a sole basis for real clinical decisions."
