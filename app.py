@@ -13,8 +13,111 @@ from sklearn.linear_model import LogisticRegression
 # ----------------------------------------------------
 st.set_page_config(page_title="Medical No-Show Predictor", layout="centered")
 
-# Adjust this if you rename the file in GitHub
+# Name of the CSV file in your GitHub repo root
 CSV_FILE = "KaggleV2-May-2016.csv"
+
+# ----------------------------
+# CUSTOM AESTHETIC THEME
+# ----------------------------
+st.markdown(
+    """
+    <style>
+
+    /* Global Background Gradient */
+    .stApp {
+        background: linear-gradient(135deg, #ffffff 0%, #f2f7ff 100%) !important;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4 {
+        color: #1e1e2f !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.5px;
+    }
+
+    /* General Text */
+    p, label, span, div {
+        color: #2b2b2b !important;
+        font-size: 16px !important;
+    }
+
+    /* Input widgets */
+    .stSelectbox, .stNumberInput, .stTextInput {
+        border-radius: 10px !important;
+    }
+
+    /* Prediction result box */
+    .stAlert {
+        border-radius: 12px !important;
+        padding: 16px !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Metric Cards */
+    div[data-testid="metric-container"] {
+        background: white !important;
+        padding: 20px;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        color: #1e1e2f !important;
+    }
+
+    /* Buttons with gradient glow */
+    .stButton>button {
+        background: linear-gradient(135deg, #6a8dff, #a875ff);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 4px 12px rgba(122, 87, 255, 0.4);
+        transition: all 0.2s ease;
+    }
+
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(122, 87, 255, 0.5);
+    }
+
+    /* Footer caption */
+    .stCaption {
+        color: #555 !important;
+        font-size: 14px !important;
+        opacity: 0.9;
+    }
+
+    </style>
+    """, unsafe_allow_html=True
+)
+
+# ----------------------------
+# SIDEBAR CONTENT
+# ----------------------------
+with st.sidebar:
+    st.title("🩺 About this app")
+    st.write(
+        "This demo predicts the risk that a patient will **no-show** a medical "
+        "appointment using a logistic regression model trained on the "
+        "Kaggle Medical Appointment No-Show dataset."
+    )
+
+    st.markdown("### 📊 Model details")
+    st.write("- Algorithm: Logistic Regression")
+    st.write("- Focus: Higher recall on no-shows")
+    st.write("- Inputs: Age, days between scheduling and appointment, comorbidities, SMS, etc.")
+
+    st.markdown("### 💡 How to use")
+    st.write(
+        "1. Enter patient and appointment details.\n"
+        "2. Click **Predict No-Show Risk**.\n"
+        "3. Use the risk level to decide on reminders or rescheduling."
+    )
+
+    st.caption("Prototype for educational use only – not real clinical advice.")
 
 
 # ----------------------------------------------------
@@ -27,6 +130,10 @@ def train_model():
 
     # ---------- BASIC CLEANING ----------
     # Age filter
+    if "Age" not in df.columns:
+        raise ValueError("The 'Age' column is missing from the CSV.")
+
+    df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
     df = df[(df["Age"] >= 0) & (df["Age"] <= 100)].copy()
 
     # Parse dates
@@ -48,6 +155,9 @@ def train_model():
     df["IsWeekend"] = (df["AppointmentDay"].dt.weekday >= 5).astype(int)
 
     # Target: 1 = No-show, 0 = Show
+    if "No-show" not in df.columns:
+        raise ValueError("The 'No-show' column is missing from the CSV.")
+
     df["NoShow"] = df["No-show"].map({"No": 0, "Yes": 1})
     df = df.dropna(subset=["NoShow"])
     df["NoShow"] = df["NoShow"].astype(int)
@@ -83,7 +193,6 @@ def train_model():
         steps=[("scaler", StandardScaler())]
     )
 
-    # binary_features are already 0/1, so we passthrough
     categorical_transformer = OneHotEncoder(handle_unknown="ignore")
 
     preprocessor = ColumnTransformer(
@@ -108,25 +217,36 @@ def train_model():
 
     model.fit(X, y)
 
-    return model, numeric_features, binary_features, categorical_features
+    return model
 
 
-pipeline, numeric_features, binary_features, categorical_features = train_model()
+pipeline = train_model()
 
 
 # ----------------------------------------------------
 # 2. STREAMLIT UI
 # ----------------------------------------------------
-st.title("Medical Appointment No-Show Predictor")
-
-st.write(
+# Hero header
+st.markdown(
     """
-This app predicts the risk that a patient will **not** show up to their medical appointment.
-The goal is to help clinics identify high-risk patients so they can send reminders or offer rescheduling.
-"""
+    <div style="
+        background: white;
+        padding: 24px 28px;
+        border-radius: 18px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        margin-bottom: 24px;
+    ">
+        <h1 style="margin-bottom: 0.4rem;">🩺 Medical No-Show Risk Dashboard</h1>
+        <p style="font-size: 16px; margin-bottom: 0;">
+            Estimate how likely a patient is to <b>miss</b> a scheduled appointment so staff can
+            send reminders or proactively reschedule.
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
-st.subheader("Patient & Appointment Information")
+st.subheader("👤 Patient & Appointment Information")
 
 col1, col2 = st.columns(2)
 
@@ -155,7 +275,6 @@ with col2:
 neighbourhood = st.text_input("Neighbourhood", value="JARDIM DA PENHA")
 
 
-# helper to convert Yes/No to 0/1
 def yn_to_int(value: str) -> int:
     return 1 if value == "Yes" else 0
 
@@ -163,8 +282,13 @@ def yn_to_int(value: str) -> int:
 # derive IsWeekend from weekday
 is_weekend = 1 if appt_weekday in ["Saturday", "Sunday"] else 0
 
+
+# ----------------------------------------------------
+# 3. PREDICTION
+# ----------------------------------------------------
 if st.button("Predict No-Show Risk"):
-    # Build a single-row DataFrame that matches training features
+
+    # Build a single-row DataFrame matching training feature structure
     input_row = {
         "Age": age,
         "DaysBetween": days_between,
@@ -182,24 +306,41 @@ if st.button("Predict No-Show Risk"):
 
     X_input = pd.DataFrame([input_row])
 
+    # Get prediction + probability
     proba_no_show = pipeline.predict_proba(X_input)[0, 1]
     pred = pipeline.predict(X_input)[0]
 
-    st.subheader("Prediction")
+    st.subheader("📌 Prediction")
 
+    # Display prediction result
     if pred == 1:
-        st.error("Prediction: Patient is **LIKELY TO NO-SHOW** ❌")
+        st.error("Prediction: Patient is **LIKELY TO NOT SHOW UP** ❌")
     else:
         st.success("Prediction: Patient is **LIKELY TO SHOW UP** ✅")
 
-   # Convert probability to percentage
+    # Convert decimal to percentage
     percent = proba_no_show * 100
 
+    # Determine risk label
+    if percent < 30:
+        risk_label = "Low"
+    elif percent < 60:
+        risk_label = "Moderate"
+    else:
+        risk_label = "High"
+
+    # Show metric card
     st.metric(
         label="Predicted No-Show Probability",
-        value=f"{percent:.1f}%",   # e.g., 51.3%
+        value=f"{percent:.1f}%",
+        delta=f"Risk level: {risk_label}",
     )
+
+    # Visual progress bar for risk level
+    st.write("No-show risk level")
+    st.progress(int(min(max(percent, 0), 100)))
 
     st.caption(
         "This is an educational prototype and should not be used as a sole basis for real clinical decisions."
     )
+
