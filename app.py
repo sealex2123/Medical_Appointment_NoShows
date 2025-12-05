@@ -178,9 +178,10 @@ ul[role="listbox"] > li:hover {
 with st.sidebar:
     st.title("🩺 About this app")
     st.write(
-        "This demo predicts the risk that a patient will **not show up** to a medical "
-        "appointment using a logistic regression model trained on the "
-        "Kaggle Medical Appointment No-Show dataset based in Brasil."
+       "This demo predicts the risk that a patient will **not show up** to a scheduled "
+       "medical appointment, using a logistic regression model trained on the "
+       "Kaggle Medical Appointment No-Show dataset from Brazil."
+
     )
 
     st.markdown("### 📊 Model details")
