@@ -13,7 +13,7 @@ from sklearn.linear_model import LogisticRegression
 # ----------------------------------------------------
 st.set_page_config(page_title="Medical No-Show Predictor", layout="centered")
 
-# Name of the CSV file in your GitHub repo root
+# Name of the CSV file 
 CSV_FILE = "KaggleV2-May-2016.csv"
 
 # ----------------------------
@@ -389,7 +389,7 @@ if st.button("Predict No-Show Risk"):
     proba_no_show = pipeline.predict_proba(X_input)[0, 1]
     pred = pipeline.predict(X_input)[0]
 
-    st.subheader("📌 Prediction")
+    st.subheader("Prediction")
 
     # Display prediction result
     if pred == 1:
