@@ -14,7 +14,7 @@ from sklearn.linear_model import LogisticRegression
 st.set_page_config(page_title="Medical No-Show Predictor", layout="centered")
 
 # Adjust this if you rename the file in GitHub
-CSV_FILE = "KaggleV2-May-2016 (1).csv"
+CSV_FILE = "KaggleV2-May-2016.csv"
 
 
 # ----------------------------------------------------
