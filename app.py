@@ -23,95 +23,45 @@ st.markdown(
     """
     <style>
 
-    /* Light gradient background */
-    .stApp {
-        background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%) !important;
-        font-family: 'Inter', sans-serif;
-        color: #1e1e2f !important;
-    }
-
-    /* Global text color */
-    html, body, [class*="css"] {
-        color: #1e1e2f !important;
-    }
-
-    /* Sidebar – white panel style */
+    /* ======== SIDEBAR LIGHT GRAY ======== */
     section[data-testid="stSidebar"] {
-        background: #ffffff !important;
-        border-right: 1px solid #e0e4e9;
-        box-shadow: 4px 0 12px rgba(0,0,0,0.04);
-    }
-
-    /* Hero card */
-    .hero-card {
-        background: #ffffff;
-        padding: 24px 28px;
-        border-radius: 18px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        background-color: #f2f2f5 !important;   /* soft light gray */
+        border-right: 1px solid #e0e0e5 !important;
         color: #1e1e2f !important;
     }
 
-    /* Input widgets (select & number input) */
-    .stSelectbox, div[data-baseweb="select"], input, .stNumberInput input {
-        background-color: #f2f4f7 !important;
+    /* ======== DROPDOWN + INPUT BOX LIGHT GRAY ======== */
+    div[data-baseweb="select"] > div,
+    .stSelectbox div[role="button"],
+    .stNumberInput input,
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        background-color: #f2f2f5 !important;   /* same soft gray */
         color: #1e1e2f !important;
-        border-radius: 10px !important;
-        border: 1px solid #d7dce3 !important;
+        border-radius: 12px !important;
+        border: 1px solid #d3d3da !important;
     }
 
-    /* Dropdown selected text */
+    /* Text inside dropdown */
     .css-1uccc91-singleValue {
         color: #1e1e2f !important;
     }
 
-    /* Buttons */
-    .stButton>button {
-        background: linear-gradient(135deg, #4b7bec, #6e8efb);
-        color: white !important;
-        padding: 12px 24px;
-        border-radius: 10px;
-        border: none;
-        font-weight: 600;
-        font-size: 16px;
-        box-shadow: 0 4px 14px rgba(91, 112, 255, 0.3);
-        transition: 0.25s ease;
+    /* Placeholder text */
+    .css-1wa3eu0-placeholder {
+        color: #6c6f78 !important;
     }
 
-    .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(91, 112, 255, 0.5);
-    }
-
-    /* Metric cards (light soft) */
-    div[data-testid="metric-container"] {
-        background: #ffffff !important;
+    /* Arrow icon */
+    div[data-baseweb="select"] svg {
         color: #1e1e2f !important;
-        border-radius: 12px;
-        padding: 18px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
-
-    /* Alerts (success/error) */
-    .stAlert {
-        border-radius: 12px !important;
-        padding: 16px !important;
-        font-size: 18px !important;
-        font-weight: 600 !important;
-        color: #1e1e2f !important;
-        background-color: #ffffff !important;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
-    }
-
-    /* Progress bar color */
-    .stProgress > div > div > div > div {
-        background-color: #4b7bec !important;
     }
 
     </style>
     """,
     unsafe_allow_html=True
 )
-
 
 # ----------------------------
 # SIDEBAR CONTENT
