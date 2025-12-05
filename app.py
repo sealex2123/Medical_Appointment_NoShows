@@ -19,49 +19,120 @@ CSV_FILE = "KaggleV2-May-2016.csv"
 # ----------------------------
 # CUSTOM AESTHETIC THEME
 # ----------------------------
-st.markdown(
-    """
-    <style>
+st.markdown(""" 
+<style>
 
-    /* ======== SIDEBAR LIGHT GRAY ======== */
-    section[data-testid="stSidebar"] {
-        background-color: #f2f2f5 !important;   /* soft light gray */
-        border-right: 1px solid #e0e0e5 !important;
-        color: #1e1e2f !important;
-    }
+/* ============================
+   GLOBAL PURE WHITE THEME
+============================ */
+.stApp {
+    background: #ffffff !important;
+    font-family: 'Inter', sans-serif;
+}
 
-    /* ======== DROPDOWN + INPUT BOX LIGHT GRAY ======== */
-    div[data-baseweb="select"] > div,
-    .stSelectbox div[role="button"],
-    .stNumberInput input,
-    input[type="text"],
-    input[type="number"],
-    textarea {
-        background-color: #f2f2f5 !important;   /* same soft gray */
-        color: #1e1e2f !important;
-        border-radius: 12px !important;
-        border: 1px solid #d3d3da !important;
-    }
+/* Make *all* text black */
+html, body, span, p, div, label {
+    color: #000000 !important;
+}
 
-    /* Text inside dropdown */
-    .css-1uccc91-singleValue {
-        color: #1e1e2f !important;
-    }
+/* Headings */
+h1, h2, h3, h4 {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+}
 
-    /* Placeholder text */
-    .css-1wa3eu0-placeholder {
-        color: #6c6f78 !important;
-    }
+/* ============================
+   SIDEBAR LIGHT MODE
+============================ */
+section[data-testid="stSidebar"] {
+    background: #ffffff !important;
+    border-right: 1px solid #e5e5e5 !important;
+}
+section[data-testid="stSidebar"] * {
+    color: #000000 !important;
+}
 
-    /* Arrow icon */
-    div[data-baseweb="select"] svg {
-        color: #1e1e2f !important;
-    }
+/* ============================
+   INPUT BOXES & DROPDOWNS (WHITE)
+============================ */
+div[data-baseweb="select"] > div,
+.stSelectbox div[role="button"],
+.stNumberInput input,
+.stTextInput input,
+input[type="text"],
+input[type="number"],
+textarea {
+    background-color: #ffffff !important;  /* PURE WHITE */
+    color: #000000 !important;
+    border-radius: 10px !important;
+    border: 1px solid #cfcfcf !important;
+}
 
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+/* Selected value text */
+.css-1uccc91-singleValue {
+    color: #000000 !important;
+}
+
+/* Placeholder text */
+.css-1wa3eu0-placeholder {
+    color: #666666 !important;
+}
+
+/* Arrow icon */
+div[data-baseweb="select"] svg {
+    color: #000000 !important;
+}
+
+/* ============================
+   DROPDOWN MENU (WHITE)
+============================ */
+ul[role="listbox"] {
+    background-color: #ffffff !important;
+    border: 1px solid #cfcfcf !important;
+    border-radius: 10px !important;
+    color: #000000 !important;
+}
+
+/* Dropdown options */
+ul[role="listbox"] > li {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Hover */
+ul[role="listbox"] > li:hover {
+    background-color: #f2f2f2 !important;
+}
+
+/* ============================
+   BUTTONS
+============================ */
+.stButton>button {
+    background: #007bff !important;
+    color: white !important;
+    border-radius: 10px !important;
+    padding: 10px 20px !important;
+    border: none !important;
+    font-weight: 600 !important;
+}
+
+.stButton>button:hover {
+    background: #005fcc !important;
+}
+
+/* ============================
+   METRIC BOXES
+============================ */
+div[data-testid="metric-container"] {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-radius: 12px !important;
+    border: 1px solid #e5e5e5 !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # ----------------------------
 # SIDEBAR CONTENT
